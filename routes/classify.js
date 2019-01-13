@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var addUser = require('./classify_api/index')
+var classIfy = require('./classify_api/index')
 
 
 /* GET users listing. */
 
 //分类接口
-router.post('/api/classIfy',addUser.addUser);
+router.post('/api/classIfy',classIfy.iconList);
 
 
 
