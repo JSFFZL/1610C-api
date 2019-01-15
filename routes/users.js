@@ -9,5 +9,9 @@ var addUser = require('./user_api/index')
 router.post('/api/addUser',addUser.addUser);
 
 
+//查询用户
+router.post('/api/getUser',addUser.getUser);
+
+
 
 module.exports = router;

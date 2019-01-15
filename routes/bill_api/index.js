@@ -62,6 +62,11 @@ function getBillTimer(req, res, next) {
     uid = params.uid, //用户
     timer = params.timer; //时间
     console.log(timer)
+
+  if(!timer || !uid){
+    return res.json({code:3,msg:'参数丢失'})
+  }
+
   if(timer.indexOf('-') != -1){   //当前有时间---说明按月查
     var timerArr = timer.split('-'); //[2019][01]
     if(timerArr[1] == '12'){ //如果年等于12月 2018-12
@@ -78,7 +83,7 @@ function getBillTimer(req, res, next) {
   }
 
   console.log(bigTimer)
-  mymongo.find('bill_list',{$and:[{timer:{"$lt":bigTimer,"$gte":timer}},{uid:uid}] },function(err,result){ //$lt: < ;$lte: <=
+  mymongo.find('bill_list',{$and:[{timer:{"$lt":bigTimer,"$gte":timer}},{uid:uid}]},function(err,result){ //$lt: < ;$lte: <=
     if(err){
       return res.json({code:0,msg:err}) 
     }else{
