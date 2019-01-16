@@ -17,6 +17,7 @@ function addUser(req, res, next) {
   }
 }
 
+//获取用户
 function getUser(req, res, next) {
   var nick_name = req.body.nick_name || '';
   if(nick_name){

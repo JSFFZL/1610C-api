@@ -48,6 +48,20 @@ function deleteBill(req, res, next) {
 }
 
 
+//模糊查询
+function searchBill(req, res, next) {
+  var intro = new RegExp(req.body.intro);
+  mymongo.find('bill_list',{intro:intro},function(err,result){
+    if(err){
+      return res.json({code:0,msg:err}) 
+    }else{
+      res.json({code:1,msg:result})
+    }
+  })
+}
+// db.getCollection('bill_list').find({'intro':/美/})
+
+
 /*
     获取账单
 
@@ -92,9 +106,59 @@ function getBillTimer(req, res, next) {
   })
 }
 
+
+
+
+
+
+/*
+    获取账单
+
+    分两大种情况：
+
+    1>按年 + 分类查询
+
+    2>按月 + 分类查询
+*/
+function getTimeBill(req, res, next){
+  var timer = new RegExp(req.body.timer);
+  console.log(timer)
+  
+  if(!timer){
+    return res.json({code:0,data:'参数丢失'})
+  }
+  mymongo.find('bill_list',{timer:timer},function(err,result){
+    if(err){
+      return res.json({code:0,data:err})
+    }else{
+      return res.json({code:0,data:result})
+    }
+  })
+}
+
+
+
+
+
+
+//按时间查询 - 模糊查询
+// function getTimeBill(req, res, next){
+//   var timer = new RegExp(req.body.timer);
+//   console.log(timer)
+//   mymongo.find('bill_list',{timer:timer},function(err,result){
+//     if(err){
+//       return res.json({code:0,data:err})
+//     }else{
+//       res.json({code:1,data:result});
+//     }
+//   })
+// }
+
 module.exports = {
   getBill : getBill,
   addBill : addBill,
   deleteBill : deleteBill,
-  getBillTimer : getBillTimer
+  getBillTimer : getBillTimer,
+  searchBill : searchBill,
+  getTimeBill : getTimeBill
 }

@@ -11,10 +11,17 @@ router.get('/api/getBill',bill.getBill);
 router.post('/api/addBill',bill.addBill);
 
 //删除账单信息
-router.get('/api/deleteBill',bill.deleteBill);
+router.post('/api/deleteBill',bill.deleteBill);
 
 //按时间获取账单
 router.post('/api/getBillTimer',bill.getBillTimer);
+
+//按时间获取账单(模糊查询)
+router.post('/api/getTimeBill',bill.getTimeBill);
+
+//模糊查询账单
+router.post('/api/searchBill',bill.searchBill);
+
 
 module.exports = router;
 
